@@ -1,27 +1,18 @@
-import React, { useState } from "react";
-
-import Counter from "./optimizing/components/Counter/Counter";
-import Header from "./optimizing/components/Header";
-import { log } from "./optimizing/log";
-import ConfigureCounter from "./optimizing/components/Counter/ConfigureCounter";
+import React from "react";
 import ReduxCounter from "./redux-practice/components/ReduxCounter";
+import Header from "./redux-practice/components/Header";
+import Auth from "./redux-practice/components/Auth";
+import UserProfile from "./redux-practice/components/UserProfile";
+import { useSelector } from "react-redux";
 
 const App = () => {
-  log("<App /> rendered");
-
-  const [chosenCount, setChosenCount] = useState(0);
-
-  const setCountHandler = (number) => {
-    setChosenCount(number);
-  };
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   return (
     <>
-      {/* <Header />
-      <main>
-        <ConfigureCounter onSet={setCountHandler} />
-        <Counter key={chosenCount} initialCount={chosenCount} />
-      </main> */}
+      <Header />
+      {!isLoggedIn && <Auth />}
+      {isLoggedIn && <UserProfile />}
       <ReduxCounter />
     </>
   );
